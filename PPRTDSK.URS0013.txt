@@ -1,0 +1,23 @@
+
+;" PPRTDSK PERTY PRINTS A SINGLE MUDDLE FUNCTION TO A DISK FILE
+   SUITABLE FOR FLOAD'ING OR EDITING WITH TECO OR EMACS OR ...
+
+   PPRTDSK'S INPUTS ARE THE ATOM THE FUNCTION IS ASSIGNED TO,
+   AND AN OPTIONAL FILE NAME STRING. THE DEFAULT FILE NAME IS
+   THE STRING WHO'S IS THE ATOM'S PNAME WITH THE THE EXTENTION OF
+   '' MUD''.
+
+   PPRTDSK GENERATATES AN ERROR IF IT CAN'T OPEN THE
+   DISK FILE FOR PRINTING. PPRINT MUST BE LOADED." 
+                                                       
+<DEFINE PPRTDSK (PRTATM ;" PPRTDSK URS012 "                                 
+ 		"OPT" (DSKFIL <STRING <PNAME .PRTATM> " MUD">)  
+		"AUX" (OUTCHAN <OPEN "PRINT" .DSKFIL>))
+	 #DECL ((PRTATM  VALUE) ATOM
+		(DSKFIL) STRING (OUTCHAN) <OR CHANNEL FALSE> )
+	<OR .OUTCHAN <ERROR "BAD FILE / CHANNEL" .OUTCHAN>>     
+	<PPRINT .PRTATM>                                       
+ 	<TERPRI>                                               
+ 	<CLOSE .OUTCHAN>                                       
+ 	.PRTATM>                                               
+
